@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terimakasih</title>
+    <style>
+        body {
+            background-color: #FFD1DC; /* Soft pink */
+            margin: 0;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .message {
+            position: absolute;
+            top: 30%;
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            color: #7a0b52;
+            opacity: 0;
+            animation: fadeIn 2s forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .particle {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            opacity: 0.8;
+            pointer-events: none;
+            animation: float 5s linear infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-50px) rotate(180deg); }
+            100% { transform: translateY(0) rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="message">Terimakasih Telah Membaca Cerpen Karya <br> <b>SEPTA YOLIANA OGISTA</b></div>
+
+    <script>
+        const shapes = [
+            "❤️", "🌸", "⭐"
+        ];
+
+        function createParticle(x, y) {
+            const particle = document.createElement("div");
+            particle.classList.add("particle");
+            particle.innerHTML = shapes[Math.floor(Math.random() * shapes.length)];
+            document.body.appendChild(particle);
+
+            particle.style.left = `${x}px`;
+            particle.style.top = `${y}px`;
+            particle.style.fontSize = `${Math.random() * 20 + 15}px`;
+            particle.style.position = "absolute";
+            particle.style.opacity = Math.random();
+
+            let animationDuration = Math.random() * 5 + 3;
+
+            particle.animate([
+                { transform: `translateY(0) rotate(0deg)`, opacity: 1 },
+                { transform: `translateY(-150px) rotate(360deg)`, opacity: 0 }
+            ], {
+                duration: animationDuration * 1000,
+                easing: "linear",
+                fill: "forwards"
+            });
+
+            setTimeout(() => {
+                particle.remove();
+            }, animationDuration * 1000);
+        }
+
+        function generateParticlesAutomatically() {
+            setInterval(() => {
+                let x = Math.random() * window.innerWidth;
+                let y = Math.random() * window.innerHeight;
+                createParticle(x, y);
+            }, 800);
+        }
+
+        document.addEventListener("click", (e) => {
+            createParticle(e.clientX, e.clientY);
+        });
+
+        generateParticlesAutomatically();
+    </script>
+
+</body>
+</html>
